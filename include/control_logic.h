@@ -24,10 +24,12 @@ typedef struct {
     int64_t total;
 } moving_average_t;
 
+/* ADC de 12 bits; devuelve -1 si la muestra o la calibración son inválidas. */
 int moisture_percent(int adc, int adc_mojado, int adc_seco);
 servo_state_t desired_servo_state(int humidity_pct, bool valid,
                                   servo_state_t previous,
                                   const control_config_t *cfg);
 void moving_average_init(moving_average_t *f);
+/* Rechaza muestras fuera de 0..4095 sin modificar la ventana del filtro. */
 int moving_average_add(moving_average_t *f, int sample);
 #endif

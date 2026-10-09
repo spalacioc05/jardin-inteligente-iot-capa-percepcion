@@ -7,13 +7,14 @@
 3. **SpecsCourseWork(2).pdf**, lineamientos generales de arquitectura de IoT y etapas del curso.
 4. **01-Percepcion_annotated(2).pdf**, notas sobre sensores, actuadores, MCU, ADC y alimentación.
 5. **Microcurriculo_IoT(2).pdf** y **Presentación del curso(2).pdf**, contenidos, evaluación y organización académica.
-6. **2026-2-IoT-main.zip**, repo educativo del curso: Part2 (FreeRTOS y GPIO), Part3 (ADC, calibración, filtro), Part4 (DHT11, HC-SR04, PWM y otros), Part5 (HTTP). El firmware de este paquete se escribió nuevamente, inspirándose en el estilo y conceptos, sin presentar los ejemplos docentes como código original del equipo.
-7. **20 imágenes del equipo** (inventario en `assets/inventario.csv`) y mensajes de Mariana Vásquez del **7 de octubre de 2026** compartidos en esta conversación.
+6. **2026-2-IoT-main.zip**, repo educativo del curso: Part2 (FreeRTOS y GPIO), Part3 (ADC, calibración, filtro), Part4 (DHT11, HC-SR04, PWM y otros), Part5 (HTTP). El código de referencia utiliza estos conceptos; su correspondencia con el firmware de la demostración no está confirmada.
+7. **20 imágenes del equipo** ([inventario](../assets/inventario.csv)) y descripciones del ensayo aportadas por los integrantes.
 
 ## Documentación externa utilizada para orientar la reconstrucción
 
+- PlatformIO: [Espressif32 6.13.0 — ESP-IDF 5.5.3](https://github.com/platformio/platform-espressif32/releases/tag/v6.13.0).
 - PlatformIO: [DOIT ESP32 DEVKIT V1 — ID de placa](https://docs.platformio.org/en/latest/boards/espressif32/esp32doit-devkit-v1.html).
-- Espressif: [LED Control (LEDC), ESP-IDF](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/ledc.html).
-- Espressif: [ADC One-Shot Mode](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/adc_oneshot.html).
+- Espressif: [LED Control (LEDC), ESP-IDF](https://docs.espressif.com/projects/esp-idf/en/v5.5/esp32/api-reference/peripherals/ledc.html).
+- Espressif: [ADC One-Shot Mode](https://docs.espressif.com/projects/esp-idf/en/v5.5/esp32/api-reference/peripherals/adc_oneshot.html).
 
-Las páginas externas orientan **la implementación de referencia** y no prueban el cableado o firmware original. Este repositorio no incluye fotografías de internet, ni distribución de los PDF/ZIP docentes, para no confundir esas ilustraciones con evidencias experimentales.
+La documentación externa orienta la implementación de referencia. Los documentos y el archivo del curso se citan como material académico; no se redistribuyen en este repositorio.

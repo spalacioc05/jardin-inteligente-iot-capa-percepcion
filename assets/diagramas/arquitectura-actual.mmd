@@ -1,14 +1,9 @@
 flowchart LR
-  A["Sonda resistiva
-2 electrodos"] --> B["Interfaz de humedad
-AO"]
-  B --> C["ESP32
-GPIO no verificados"]
-  C --> D["Servo
-riego simulado"]
-  C --> E["Monitor serial
-ADC · humedad · estado"]
+  S["Sonda resistiva<br/>Dos electrodos"] --> I["Interfaz de humedad<br/>Salida analógica AO"]
+  I --> E["ESP32<br/>Lectura ADC"]
+  E --> V["Microservomotor<br/>Riego simulado"]
+  E --> C["Monitor serial<br/>ADC · humedad · estado"]
   classDef sensor fill:#eaf8f1,stroke:#187651,color:#12543a
   classDef control fill:#e4f1ff,stroke:#3168a8,color:#174471
-  class A,B,D sensor
-  class C,E control
+  class S,I,V sensor
+  class E,C control

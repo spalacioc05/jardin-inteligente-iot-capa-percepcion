@@ -1,6 +1,10 @@
 flowchart TB
-  A["Evidenciado: sensor resistivo + ESP32 + servo"] --> B["Pendiente: verificar voltajes y GPIO"]
-  B --> C["Pendiente: adaptar HC-SR04 y leer tanque"]
-  C --> D["Pendiente: relé + bomba real"]
-  D --> E["Futuro: Wi-Fi y MQTT/TLS"]
-  E --> F["Futuro: Raspberry Pi, DB y dashboard"]
+  A["Prototipo actual<br/>Sensor resistivo · ESP32 · servo"] --> B["Pendiente<br/>Confirmar placa, GPIO y alimentación"]
+  B --> C["Pendiente<br/>Integrar HC-SR04 y medir nivel del tanque"]
+  C --> D["Pendiente<br/>Adquirir bomba e integrar relé"]
+  D --> E["Capas posteriores<br/>Wi-Fi · MQTT/TLS"]
+  E --> F["Aplicación futura<br/>Raspberry Pi · base de datos · dashboard"]
+  classDef actual fill:#eaf8f1,stroke:#187651,color:#12543a
+  classDef futuro fill:#f1f3f5,stroke:#64748b,color:#334155
+  class A actual
+  class B,C,D,E,F futuro

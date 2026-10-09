@@ -1,21 +1,7 @@
-# Declaración de transparencia en el uso de inteligencia artificial
+# Declaración de uso de inteligencia artificial
 
-Este documento se aporta para cumplir el **ítem 9 de `Tarea-CapaPercepcion.pdf`**: cuándo, cómo y por qué se utilizó IA. Debe ser revisado por los tres integrantes antes de entregarse.
+Durante la preparación y revisión de esta primera entrega, en octubre de 2026, se utilizó **ChatGPT (OpenAI)** para organizar la documentación y las evidencias, redactar y revisar el README, elaborar diagramas y apoyar la revisión técnica del proyecto.
 
-## Uso registrado en la preparación del repositorio
+La asistencia incluyó el desarrollo de una implementación de referencia en C con PlatformIO, ESP-IDF y FreeRTOS, la elaboración de pruebas de lógica en PC y la corrección de código y enlaces. Se trabajó a partir de los materiales del curso, las fotografías y las descripciones aportadas por el equipo, con el propósito de presentar el trabajo de forma clara y facilitar su revisión y continuidad.
 
-- **Cuándo:** octubre de 2026, durante la organización del repositorio de la primera entrega.
-- **Herramienta:** ChatGPT (OpenAI).
-- **Para qué:** organizar y describir las 20 imágenes, diferenciar lo observado de lo pendiente, proponer diagramas, estructurar el README y documentación, redactar una **reconstrucción didáctica de código C** para PlatformIO/ESP-IDF/FreeRTOS, proponer pruebas lógicas y guías de validación.
-- **Cómo:** a partir de la propuesta del curso, lineamientos, ZIP docente, fotografías y mensajes aportados por el equipo. Se incluyeron verificaciones de lógica C ejecutadas fuera del dispositivo.
-- **Limitaciones:** no se contó con el firmware original, no se identificaron con certeza las conexiones ni se certificó la compilación en ESP-IDF o el comportamiento físico del código reconstruido. La IA no puede verificar hechos experimentales ausentes de las evidencias.
-
-## Responsabilidad del equipo
-
-El equipo debe revisar los datos, confirmar GPIO y voltajes, validar el código en su hardware, registrar nuevas pruebas y corregir cualquier error antes de declarar implementaciones y resultados finales. Las fotografías y demostraciones corresponden al material compartido por el equipo, **no** a experimentos realizados por IA.
-
-## Campos que cada integrante debe completar si hubo otros usos
-
-- Herramientas IA adicionales: pendiente de confirmar con los autores.
-- Prompts o actividades en otras etapas: pendiente de confirmar con los autores.
-- Revisión humana final y validación técnica: pendiente.
+Las fotografías y los ensayos corresponden al equipo. El código de referencia no se ha confirmado como idéntico al utilizado en la demostración; las verificaciones en PC no validan el montaje físico. Los integrantes son responsables de revisar el contenido y comprobar el firmware en su hardware antes de atribuirle resultados experimentales.

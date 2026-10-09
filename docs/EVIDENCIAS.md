@@ -1,8 +1,10 @@
 # Catálogo de las 20 evidencias visuales
 
-Las fotografías son aportadas por el equipo y se incluyen **sin reemplazarlas por fotos de internet**. No se alteró su contenido. Cada ficha conserva el nombre del archivo de origen para rastreabilidad.
+Las 20 fotografías fueron aportadas por el equipo y conservan su contenido original. Cada ficha identifica el archivo de origen y describe su relación con el ensayo. El [inventario CSV](../assets/inventario.csv) reúne estos mismos registros.
 
-El análisis describe exclusivamente lo visible y los mensajes del equipo; no reemplaza mediciones de laboratorio ni prueba circuitos completos.
+**Caracterización:** E01–E11 · **Componentes pendientes:** E12–E13 · **Prototipo:** E14–E20. Las descripciones se limitan a lo visible y a lo reportado por el equipo.
+
+<a id="e01"></a>
 
 ## E01 — Captura de monitor: ADC 4095, humedad 0%
 ![Captura de monitor: ADC 4095, humedad 0%](../assets/fotos/01-adc-seco-4095.png)
@@ -12,6 +14,8 @@ El análisis describe exclusivamente lo visible y los mensajes del equipo; no re
 
 ---
 
+<a id="e02"></a>
+
 ## E02 — Detalle de sonda resistiva de dos electrodos
 ![Detalle de sonda resistiva de dos electrodos](../assets/fotos/02-sonda-resistiva-detalle.png)
 **Categoría:** Caracterización. **Origen:** `image(20261009-000333).png`.
@@ -19,6 +23,8 @@ El análisis describe exclusivamente lo visible y los mensajes del equipo; no re
 **Lectura:** Sonda de horquilla con pistas conductoras; no es el sensor capacitivo originalmente propuesto.
 
 ---
+
+<a id="e03"></a>
 
 ## E03 — Captura de monitor: ADC cercano a 2064–2079, humedad 100%
 ![Captura de monitor: ADC cercano a 2064–2079, humedad 100%](../assets/fotos/03-adc-humedo-2077.png)
@@ -28,6 +34,8 @@ El análisis describe exclusivamente lo visible y los mensajes del equipo; no re
 
 ---
 
+<a id="e04"></a>
+
 ## E04 — Sonda de humedad conectada, vista superior
 ![Sonda de humedad conectada, vista superior](../assets/fotos/04-sonda-resistiva-superficie.png)
 **Categoría:** Caracterización. **Origen:** `image(20261009-000412).png`.
@@ -35,6 +43,8 @@ El análisis describe exclusivamente lo visible y los mensajes del equipo; no re
 **Lectura:** Se aprecia conector en la sonda y dos electrodos expuestos.
 
 ---
+
+<a id="e05"></a>
 
 ## E05 — Montaje ESP32, sonda e interfaz
 ![Montaje ESP32, sonda e interfaz](../assets/fotos/05-montaje-caracterizacion.png)
@@ -44,6 +54,8 @@ El análisis describe exclusivamente lo visible y los mensajes del equipo; no re
 
 ---
 
+<a id="e06"></a>
+
 ## E06 — Monitor: 4095 y 0%, con otro mínimo de calibración
 ![Monitor: 4095 y 0%, con otro mínimo de calibración](../assets/fotos/06-adc-seco-segunda-calibracion.png)
 **Categoría:** Caracterización. **Origen:** `image(20261009-000437).png`.
@@ -51,6 +63,8 @@ El análisis describe exclusivamente lo visible y los mensajes del equipo; no re
 **Lectura:** En esta captura MIN ≈2683 y MAX 4095; distinta calibración respecto a otras fotos.
 
 ---
+
+<a id="e07"></a>
 
 ## E07 — Sonda próxima a recipiente con agua
 ![Sonda próxima a recipiente con agua](../assets/fotos/07-sonda-junto-recipiente.png)
@@ -60,6 +74,8 @@ El análisis describe exclusivamente lo visible y los mensajes del equipo; no re
 
 ---
 
+<a id="e08"></a>
+
 ## E08 — Sonda parcialmente en agua del recipiente
 ![Sonda parcialmente en agua del recipiente](../assets/fotos/08-sonda-sumergida-agua.png)
 **Categoría:** Caracterización. **Origen:** `image(20261009-000622).png`.
@@ -67,6 +83,8 @@ El análisis describe exclusivamente lo visible y los mensajes del equipo; no re
 **Lectura:** Ensayo experimental, no prueba de medición volumétrica calibrada de suelo.
 
 ---
+
+<a id="e09"></a>
 
 ## E09 — Monitor: lecturas 2100–2315 y 100–91%
 ![Monitor: lecturas 2100–2315 y 100–91%](../assets/fotos/09-adc-humedad-decreciente.png)
@@ -76,6 +94,8 @@ El análisis describe exclusivamente lo visible y los mensajes del equipo; no re
 
 ---
 
+<a id="e10"></a>
+
 ## E10 — Papel absorbente usado en experimento
 ![Papel absorbente usado en experimento](../assets/fotos/10-papel-absorbente.png)
 **Categoría:** Caracterización. **Origen:** `image(20261009-000726).png`.
@@ -83,6 +103,8 @@ El análisis describe exclusivamente lo visible y los mensajes del equipo; no re
 **Lectura:** Material utilizado para variar la humedad detectada.
 
 ---
+
+<a id="e11"></a>
 
 ## E11 — Monitor: ADC 2671–2449, humedad aprox. 73–84%
 ![Monitor: ADC 2671–2449, humedad aprox. 73–84%](../assets/fotos/11-adc-estado-intermedio.png)
@@ -92,6 +114,8 @@ El análisis describe exclusivamente lo visible y los mensajes del equipo; no re
 
 ---
 
+<a id="e12"></a>
+
 ## E12 — Fotografía de módulo relé de 5 V
 ![Fotografía de módulo relé de 5 V](../assets/fotos/12-modulo-rele-5v.png)
 **Categoría:** Componente pendiente. **Origen:** `image(20261009-000904).png`.
@@ -99,6 +123,8 @@ El análisis describe exclusivamente lo visible y los mensajes del equipo; no re
 **Lectura:** Componente disponible/seleccionado, pero no hay evidencia de conexión ni actuación sobre bomba.
 
 ---
+
+<a id="e13"></a>
 
 ## E13 — Fotografía de módulo ultrasónico HC-SR04
 ![Fotografía de módulo ultrasónico HC-SR04](../assets/fotos/13-modulo-ultrasonico-hcsr04.png)
@@ -108,6 +134,8 @@ El análisis describe exclusivamente lo visible y los mensajes del equipo; no re
 
 ---
 
+<a id="e14"></a>
+
 ## E14 — Fotografía de placa ESP32 alimentada
 ![Fotografía de placa ESP32 alimentada](../assets/fotos/14-placa-esp32.png)
 **Categoría:** Prototipo. **Origen:** `image(20261009-001006).png`.
@@ -115,6 +143,8 @@ El análisis describe exclusivamente lo visible y los mensajes del equipo; no re
 **Lectura:** Se aprecia LED de alimentación y módulo ESP32; modelo exacto no verificable en la foto.
 
 ---
+
+<a id="e15"></a>
 
 ## E15 — Módulo de interfaz de humedad con potenciómetro
 ![Módulo de interfaz de humedad con potenciómetro](../assets/fotos/15-interfaz-sensor.png)
@@ -124,6 +154,8 @@ El análisis describe exclusivamente lo visible y los mensajes del equipo; no re
 
 ---
 
+<a id="e16"></a>
+
 ## E16 — Microservomotor azul con brazo blanco
 ![Microservomotor azul con brazo blanco](../assets/fotos/16-servo-azul.png)
 **Categoría:** Prototipo. **Origen:** `image(20261009-001026).png`.
@@ -131,6 +163,8 @@ El análisis describe exclusivamente lo visible y los mensajes del equipo; no re
 **Lectura:** Actuador demostrativo; familia tipo SG90 por apariencia, sin referencia comprobada.
 
 ---
+
+<a id="e17"></a>
 
 ## E17 — Conjunto sensor e interfaz cableados
 ![Conjunto sensor e interfaz cableados](../assets/fotos/17-conexion-prototipo.png)
@@ -140,6 +174,8 @@ El análisis describe exclusivamente lo visible y los mensajes del equipo; no re
 
 ---
 
+<a id="e18"></a>
+
 ## E18 — Monitor: AUTO servo ABIERTO/CERRADO
 ![Monitor: AUTO servo ABIERTO/CERRADO](../assets/fotos/18-consola-servo-estados.png)
 **Categoría:** Prototipo. **Origen:** `image(20261009-001116).png`.
@@ -148,6 +184,8 @@ El análisis describe exclusivamente lo visible y los mensajes del equipo; no re
 
 ---
 
+<a id="e19"></a>
+
 ## E19 — Sonda sobre papel y servo en la misma escena
 ![Sonda sobre papel y servo en la misma escena](../assets/fotos/19-prueba-humedad-papel.png)
 **Categoría:** Prototipo. **Origen:** `image(20261009-001318).png`.
@@ -155,6 +193,8 @@ El análisis describe exclusivamente lo visible y los mensajes del equipo; no re
 **Lectura:** Evidencia física de escenario de prueba de respuesta al cambio de humedad.
 
 ---
+
+<a id="e20"></a>
 
 ## E20 — Prueba colocando mano sobre papel que cubre la sonda
 ![Prueba colocando mano sobre papel que cubre la sonda](../assets/fotos/20-presion-papel-humedad.png)

@@ -1,40 +1,29 @@
-# Estado real del trabajo y límites de la evidencia
+# Estado del proyecto
 
-> Esta página prevalece sobre cualquier esquema de arquitectura futura. Solo describe lo que se ve en las 20 imágenes y lo que el equipo indicó expresamente en sus mensajes del **7 de octubre de 2026**. No hemos recibido el código fuente original ni un registro de pruebas de compilación.
+Esta primera entrega reúne la caracterización de humedad y un prototipo con servo, documentados mediante [20 fotografías](EVIDENCIAS.md) y las descripciones del equipo.
 
-## Confirmado con fotografías o mensajes del equipo
+## Resultados disponibles
 
-1. Se realizó **caracterización de una sonda resistiva de humedad de dos electrodos** conectada a un módulo de interfaz y un ESP32.
-2. En una prueba seca, el monitor serie indica **ADC 4095 → humedad 0 %**.
-3. En pruebas húmedas se observan lecturas **aprox. 2064–2100 → humedad 100 %** con la calibración particular de cada corrida. Otras capturas muestran valores intermedios.
-4. Se realizó un **prototipo con servomotor** para representar el estado de riego: **servo abierto = bomba funcionando (simulada)** y **servo cerrado = bomba apagada (simulada)**.
-5. El equipo describió: **0 % de humedad → servo abierto** y **humedad ≥70 % → servo cerrado**. Capturas del monitor muestran estados `AUTO | servo ABIERTO/CERRADO`.
-6. El equipo dispone o seleccionó un **módulo de relé de 5 V**, que **no se ve conectado como parte del prototipo funcional**.
-7. El equipo seleccionó un **HC-SR04 para el nivel del tanque**, **sin integración funcional**, según sus mensajes por asuntos de niveles de tensión.
-8. **No se consiguió la bomba de agua** para esta entrega, según los mensajes del equipo; se esperan componentes demorados del envío.
+- Sonda resistiva de dos electrodos, módulo de interfaz y ESP32 utilizados para obtener lecturas analógicas.
+- Ensayos con agua y papel absorbente, con registros secos de ADC 4095 y lecturas húmedas e intermedias bajo diferentes calibraciones.
+- Conversión de las lecturas a una escala porcentual mostrada en consola.
+- Servomotor utilizado para representar el riego. El equipo reporta apertura a 0 % y cierre a partir de 70 %; E18 muestra estados abierto y cerrado.
 
 ## Diferencias con la propuesta inicial
 
-| Propuesta inicial | Evidencia real de esta entrega |
+| Propuesta | Estado de esta entrega |
 |---|---|
-| Sensor **capacitivo** de humedad del suelo | Sonda **resistiva** de dos electrodos y módulo de interfaz |
-| Sensor de nivel **analógico** del kit | HC-SR04 **seleccionado**, pero **no integrado** |
-| Bomba DC mediante relé de 5 V | **Servo demostrativo**; bomba ausente; relé fotografiado |
-| DHT11 de temperatura y humedad ambiental | **Sin evidencia** de integración en las fotos compartidas |
-| Control del nivel mínimo de tanque | **No implementado en el prototipo evidenciado** |
-| MQTT/TLS, Raspberry Pi y dashboard | **No implementados en la evidencia**; capas posteriores |
+| Sensor capacitivo de humedad | Se utilizó una sonda resistiva. |
+| Sensor de nivel analógico del kit | Se seleccionó un HC-SR04, aún sin integración funcional. |
+| Bomba DC controlada por relé de 5 V | El servo representa el riego; el relé está fotografiado y la bomba pendiente de adquisición. |
+| DHT11 | Sin evidencia de integración. |
+| Riego según perfil de planta y disponibilidad de agua | Objetivo del proyecto; aún no hay perfiles configurables ni control por nivel del tanque. |
+| MQTT/TLS, Raspberry Pi y dashboard | Corresponden a etapas posteriores. |
 
-## Lo que las imágenes NO prueban
+## Alcance del firmware publicado
 
-- No muestran de forma inequívoca referencia comercial exacta de placa ESP32, módulo resistivo o servo.
-- No permiten identificar con certeza número de GPIO, fuente de alimentación, resistencias o recorrido mecánico del servo.
-- No prueban que la bomba o el relé estén actuando sobre agua.
-- No prueban sensor ultrasónico conectado, DHT11, filtrado de media móvil, conectividad o telemetría en JSON.
-- No permiten asegurar qué ocurrió **entre 1 % y 69 % de humedad** ni el firmware exacto empleado.
-- No demuestran que se haya utilizado FreeRTOS con ESP-IDF en el firmware original: aparece PlatformIO y un identificador de placa, pero **el código original no fue adjuntado**.
+El código de [src/](../src/) es una implementación de referencia reconstruida a partir del comportamiento conocido, con PlatformIO, ESP-IDF y FreeRTOS. No se ha confirmado que sea idéntico al programa utilizado en la demostración física.
 
-## Qué es el código de este repositorio
+Los GPIO, pulsos del servo y puntos de calibración son parámetros de referencia. El promedio móvil, el arranque en cerrado, el tratamiento de errores y la conservación del estado entre 1–69 % son decisiones del código publicado, sin evidencia suficiente para atribuirlas al firmware original. El monitor muestra PlatformIO, pero las imágenes por sí solas no permiten verificar el framework ni la organización de tareas del programa original.
 
-El código en `src/` es una **implementación didáctica reconstruida** que sigue el comportamiento declarado y emplea explícitamente FreeRTOS, PlatformIO y ESP-IDF, tal como exige la consigna del profesor. Sus pines y configuraciones son **supuestos configurables** y **no equivalen a las conexiones físicas verificadas**. Los controles de seguridad y el tratamiento de estados intermedios son **decisiones de implementación nuevas, no hechos probados sobre el programa original**.
-
-> **No describir el firmware reconstruido como el archivo `.c` escrito o cargado por Mariana u otro integrante el día del video.**
+Las [pruebas en PC](PRUEBAS.md) verifican la lógica de referencia. La compilación con PlatformIO y la validación en la placa siguen pendientes, junto con la identificación exacta del hardware, el esquema eléctrico y el enlace del video.

@@ -1,15 +1,11 @@
 /*
- * JARDÍN INTELIGENTE — reconstrucción didáctica de capa de percepción.
- * NO es una copia del firmware original: únicamente se compartieron fotos y
- * capturas. Sin pruebas en la placa del equipo; revisar docs/ESTADO_REAL.md.
- *
- * Alcance ACTUAL: lectura analógica del sensor resistivo + media móvil,
- * porcentaje referencial, y servo abierto/cerrado en tareas FreeRTOS.
- * NO conecta bomba, relé, HC-SR04, DHT11, Wi-Fi, MQTT ni dashboard.
+ * Jardín inteligente: firmware de referencia para la capa de percepción.
+ * ADC, media móvil y control del servo mediante tareas FreeRTOS.
+ * Correspondencia con el programa de la demostración y validación física
+ * pendientes; consultar docs/ESTADO_REAL.md antes de cargar en la placa.
  */
 #include <stdbool.h>
 #include <stdint.h>
-#include <stdio.h>
 #include "esp_err.h"
 #include "esp_log.h"
 #include "esp_timer.h"
@@ -33,7 +29,7 @@ static const control_config_t s_cfg = {
 
 typedef struct {
     int raw;
-    int filtrado;
+    int filtered;
     int humidity_pct;
     uint32_t timestamp_ms;
     bool valid;
@@ -93,12 +89,19 @@ static void acquisition_task(void *arg) {
         int raw = -1;
         esp_err_t err = adc_oneshot_read(s_adc, PIN_SENSOR_ADC_CHANNEL, &raw);
         bool valid = (err == ESP_OK && raw >= 0 && raw <= 4095);
+        if (!valid) {
+            ESP_LOGW(TAG, "Lectura ADC invalida: %s (ADC=%d)", esp_err_to_name(err), raw);
+            /* No mezclar muestras anteriores al fallo con la recuperación. */
+            moving_average_init(&filter);
+        }
         int filtered = valid ? moving_average_add(&filter, raw) : -1;
+        int humidity_pct = valid ? moisture_percent(filtered, s_cfg.adc_mojado,
+                                                    s_cfg.adc_seco) : -1;
         reading_t r = {
             .raw = raw,
-            .filtrado = filtered,
-            .humidity_pct = valid ? moisture_percent(filtered, ADC_MOJADO, ADC_SECO) : -1,
-            .valid = valid,
+            .filtered = filtered,
+            .humidity_pct = humidity_pct,
+            .valid = valid && humidity_pct >= 0,
             .timestamp_ms = (uint32_t)(esp_timer_get_time() / 1000ULL),
         };
         /* Mantener la lectura más reciente evita crecer memoria sin control. */
@@ -110,18 +113,26 @@ static void acquisition_task(void *arg) {
 static void control_task(void *arg) {
     (void)arg;
     servo_state_t state = SERVO_CERRADO;
-    write_servo(state);
     reading_t r;
     while (true) {
-        if (xQueueReceive(s_readings_queue, &r, portMAX_DELAY) != pdTRUE) continue;
+        if (xQueueReceive(s_readings_queue, &r, pdMS_TO_TICKS(ESPERA_LECTURA_MS)) != pdTRUE) {
+            state = SERVO_CERRADO;
+            write_servo(state);
+            ESP_LOGW(TAG, "Sin nuevas muestras: servo CERRADO");
+            continue;
+        }
         servo_state_t next = desired_servo_state(r.humidity_pct, r.valid, state, &s_cfg);
         if (next != state) {
             state = next;
             write_servo(state);
             ESP_LOGI(TAG, "Servo -> %s", state == SERVO_ABIERTO ? "ABIERTO" : "CERRADO");
         }
+        if (!r.valid) {
+            ESP_LOGW(TAG, "Humedad no disponible | servo CERRADO");
+            continue;
+        }
         ESP_LOGI(TAG, "Humedad: %d%% (ADC=%d | media=%d) | AUTO | servo %s | t=%lu ms",
-                 r.humidity_pct, r.raw, r.filtrado,
+                 r.humidity_pct, r.raw, r.filtered,
                  state == SERVO_ABIERTO ? "ABIERTO" : "CERRADO",
                  (unsigned long)r.timestamp_ms);
     }
@@ -134,11 +145,23 @@ void app_main(void) {
     s_readings_queue = xQueueCreate(1, sizeof(reading_t));
     if (!s_readings_queue) {
         ESP_LOGE(TAG, "No se pudo crear cola FreeRTOS");
+        ESP_ERROR_CHECK(adc_oneshot_del_unit(s_adc));
         return;
     }
-    BaseType_t a = xTaskCreate(acquisition_task, "adquisicion_ADC", 4096, NULL, 5, NULL);
-    BaseType_t b = xTaskCreate(control_task, "control_servo", 4096, NULL, 4, NULL);
-    if (a != pdPASS || b != pdPASS) {
-        ESP_LOGE(TAG, "Error creando tareas FreeRTOS");
+    /* El control espera en la cola antes de iniciar la adquisición. */
+    TaskHandle_t control_handle = NULL;
+    if (xTaskCreate(control_task, "control_servo", 4096, NULL, 4,
+                    &control_handle) != pdPASS) {
+        ESP_LOGE(TAG, "No se pudo crear tarea de control");
+        vQueueDelete(s_readings_queue);
+        ESP_ERROR_CHECK(adc_oneshot_del_unit(s_adc));
+        return;
+    }
+    if (xTaskCreate(acquisition_task, "adquisicion_ADC", 4096, NULL, 5, NULL) != pdPASS) {
+        ESP_LOGE(TAG, "No se pudo crear tarea de adquisicion");
+        vTaskDelete(control_handle);
+        vQueueDelete(s_readings_queue);
+        ESP_ERROR_CHECK(adc_oneshot_del_unit(s_adc));
+        write_servo(SERVO_CERRADO);
     }
 }

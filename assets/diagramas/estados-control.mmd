@@ -1,8 +1,13 @@
 stateDiagram-v2
-  [*] --> Indeterminado
-  Indeterminado --> ServoAbierto: humedad == 0%
-  Indeterminado --> ServoCerrado: humedad >=70%
-  ServoAbierto --> ServoCerrado: humedad >=70%
-  ServoCerrado --> ServoAbierto: humedad ==0%
-  note right of ServoAbierto: Riego SIMULADO activo
-  note right of ServoCerrado: Riego SIMULADO apagado
+  [*] --> Cerrado: inicio
+  Cerrado --> Abierto: humedad = 0 %
+  Abierto --> Cerrado: humedad >= 70 %
+  Abierto --> Cerrado: lectura inválida o sin muestras
+  Cerrado --> Cerrado: humedad entre 1 y 69 %
+  Abierto --> Abierto: humedad entre 1 y 69 %
+  note right of Cerrado
+    Riego simulado desactivado
+  end note
+  note right of Abierto
+    Riego simulado activo
+  end note

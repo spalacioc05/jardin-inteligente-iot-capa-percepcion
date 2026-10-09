@@ -1,42 +1,59 @@
-# Puesta en marcha de la reconstrucción
+# Puesta en marcha del firmware de referencia
 
-> **Advertencia:** este firmware se redactó a partir de fotografías y descripciones. **No es el firmware original**, no se ha compilado en la instalación PlatformIO del equipo y no se ha ejecutado sobre su placa.
+Esta implementación se reconstruyó a partir del comportamiento conocido. La compilación con PlatformIO y la ejecución sobre la placa del equipo están pendientes.
 
-## Requisitos
+## Preparar el entorno
 
-- Visual Studio Code y extensión PlatformIO IDE.
-- Toolchain ESP-IDF disponible por PlatformIO.
-- ESP32 físico: confirmar si corresponde realmente a la variante DOIT ESP32 DEVKIT V1 sugerida por el nombre del entorno visible.
-- Sonda resistiva de humedad + interfaz analógica; microservomotor; fuente adecuada para el servo.
+Instalar PlatformIO Core o la extensión PlatformIO IDE para Visual Studio Code y abrir la raíz del repositorio. El entorno `esp32doit-devkit-v1` utiliza ESP-IDF; la [plataforma Espressif32 6.13.0](https://github.com/platformio/platform-espressif32/releases/tag/v6.13.0) está fijada para mantener la misma versión de referencia.
 
-## Pasos
+Compilar sin conectar la placa:
 
-1. Abrir la **raíz** del repositorio como proyecto PlatformIO.
-2. Inspeccionar `platformio.ini`, `include/project_config.h` y las etiquetas impresas en la placa. Si la variante de ESP32 difiere, modificar la configuración.
-3. Confirmar la **salida AO** del módulo de humedad; conectarla a un ADC compatible **solo después** de medir que la salida no supere los 3,3 V. Las imágenes no permiten certificar los pines usados.
-4. Conectar la señal del servo al GPIO elegido **solo después** de identificar el pin real. Alimentar el servo de una fuente compatible y unir GND de la fuente con GND del ESP32. **No alimentarlo desde GPIO**.
-5. Ajustar las lecturas `ADC_MOJADO`, `ADC_SECO` y los pulsos del servo a las condiciones reales.
-6. Compilar y cargar con los controles habituales de PlatformIO o con `pio run -e esp32doit-devkit-v1 -t upload`.
-7. Observar por consola con `pio device monitor -b 115200`.
-8. Comprobar primero el control del servo sin acoplarlo a mecanismos ni a la bomba.
+```bash
+pio run -e esp32doit-devkit-v1
+```
 
-## Qué hace
+## Revisar el montaje antes de cargar
 
-- Tarea de muestreo con ADC1 y promedio móvil de 8 muestras (elección de esta reconstrucción).
-- Tarea FreeRTOS de control mediante cola de longitud 1.
-- Escala orientativa 0–100% entre `ADC_SECO` y `ADC_MOJADO`.
-- Lectura 0%: orden de servo abierto. Lectura >=70%: servo cerrado. Valores intermedios: mantiene el estado previo (**decisión propuesta, no evidenciada**).
-- Lectura inválida: servo cerrado (seguridad propuesta).
+1. Confirmar la referencia de la placa y contrastarla con [platformio.ini](../platformio.ini).
+2. Revisar [project_config.h](../include/project_config.h). ADC1, canal 6 (GPIO34 en ESP32 clásico) y GPIO18 son **ejemplos**, no pines recuperados del montaje.
+3. Medir la salida AO y confirmar que sea compatible con la entrada ADC. Verificar la alimentación de la interfaz y la tierra común.
+4. Confirmar la señal y la fuente del servo; no alimentarlo desde un GPIO. Documentar el cableado real según la [arquitectura](ARQUITECTURA.md).
+5. Ajustar `ADC_MOJADO`, `ADC_SECO` y los pulsos de apertura/cierre al ensayo y al recorrido mecánico, evitando topes.
 
-## Qué NO hace
+Una vez revisados estos puntos, cargar y abrir el monitor:
 
-No controla una bomba ni el relé de 5 V, no usa el HC-SR04, no lee un DHT11 y no implementa Wi-Fi, MQTTS, servidor ni dashboard. El repo documenta esos componentes solamente como futuros o no integrados.
+```bash
+pio run -e esp32doit-devkit-v1 -t upload
+pio device monitor -b 115200
+```
 
-## Comprobación de lógica en PC
+Si hay varios dispositivos, seleccionar el puerto correspondiente con las opciones de PlatformIO. Ensayar primero el servo sin acoplarlo a mecanismos.
+
+## Comportamiento esperado de esta versión
+
+- Muestreo ADC de 12 bits cada 1000 ms y media móvil de ocho muestras.
+- Conversión relativa a 0–100 %, redondeada al entero más cercano.
+- Servo inicialmente cerrado; apertura a 0 % y cierre desde 70 %.
+- Entre 1–69 %, conservación del estado anterior.
+- Lectura inválida: cierre y reinicio del filtro; ausencia de muestras durante 3000 ms: cierre.
+- Cola de una lectura entre adquisición y control; mensajes de estado por consola.
+
+El filtro introduce retardo ante cambios de humedad: la ventana completa cubre ocho muestras. Una lectura ADC válida de 4095 se interpreta como el extremo seco; **no permite distinguir por sí sola sequedad, saturación o una desconexión eléctrica**. La respuesta al fallo de sensor debe ensayarse en hardware.
+
+## Pruebas en PC
+
+Con Make, GCC (o compilador C equivalente) y Python 3:
 
 ```bash
 make -C tests test
-python3 scripts/verificar_evidencias.py
+python scripts/verificar_evidencias.py
 ```
 
-Estas verificaciones no sustituyen compilación ni pruebas en el ESP32. Los porcentajes de las fotos proceden de diferentes corridas de calibración y pueden diferir de la fórmula de referencia.
+En Windows con MinGW/MSYS2, agregar su directorio de herramientas al `PATH` y utilizar:
+
+```powershell
+mingw32-make -C tests test CC=gcc
+python scripts/verificar_evidencias.py
+```
+
+La [matriz de pruebas](PRUEBAS.md) separa estas verificaciones de los ensayos físicos.
