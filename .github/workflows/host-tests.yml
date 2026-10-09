@@ -1,0 +1,13 @@
+name: Validación de lógica C (sin hardware)
+on:
+  push:
+  pull_request:
+jobs:
+  logic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ejecutar pruebas nativas de calibración y control
+        run: make -C tests test
+      - name: Comprobar integridad del inventario de fotos
+        run: python3 scripts/verificar_evidencias.py

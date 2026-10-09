@@ -1,0 +1,21 @@
+id,ruta,categoria,titulo,interpretacion,origen
+E01,assets/fotos/01-adc-seco-4095.png,Caracterización,"Captura de monitor: ADC 4095, humedad 0%",Registro repetido de lectura seca; MIN y MAX dependen de la corrida.,image(20261009-000303).png
+E02,assets/fotos/02-sonda-resistiva-detalle.png,Caracterización,Detalle de sonda resistiva de dos electrodos,Sonda de horquilla con pistas conductoras; no es el sensor capacitivo originalmente propuesto.,image(20261009-000333).png
+E03,assets/fotos/03-adc-humedo-2077.png,Caracterización,"Captura de monitor: ADC cercano a 2064–2079, humedad 100%",La captura muestra MIN 2064 y MAX 4095 en esa sesión.,image(20261009-000357).png
+E04,assets/fotos/04-sonda-resistiva-superficie.png,Caracterización,"Sonda de humedad conectada, vista superior",Se aprecia conector en la sonda y dos electrodos expuestos.,image(20261009-000412).png
+E05,assets/fotos/05-montaje-caracterizacion.png,Caracterización,"Montaje ESP32, sonda e interfaz",La tarjeta azul con potenciómetro y LED es el módulo de interfaz de sonda; pines exactos no legibles.,image(20261009-000424).png
+E06,assets/fotos/06-adc-seco-segunda-calibracion.png,Caracterización,"Monitor: 4095 y 0%, con otro mínimo de calibración",En esta captura MIN ≈2683 y MAX 4095; distinta calibración respecto a otras fotos.,image(20261009-000437).png
+E07,assets/fotos/07-sonda-junto-recipiente.png,Caracterización,Sonda próxima a recipiente con agua,Secuencia visual de ensayo de humedad.,image(20261009-000557).png
+E08,assets/fotos/08-sonda-sumergida-agua.png,Caracterización,Sonda parcialmente en agua del recipiente,"Ensayo experimental, no prueba de medición volumétrica calibrada de suelo.",image(20261009-000622).png
+E09,assets/fotos/09-adc-humedad-decreciente.png,Caracterización,Monitor: lecturas 2100–2315 y 100–91%,Registros relacionados con variación de humedad tras ensayo.,image(20261009-000636).png
+E10,assets/fotos/10-papel-absorbente.png,Caracterización,Papel absorbente usado en experimento,Material utilizado para variar la humedad detectada.,image(20261009-000726).png
+E11,assets/fotos/11-adc-estado-intermedio.png,Caracterización,"Monitor: ADC 2671–2449, humedad aprox. 73–84%",Lecturas intermedias; no representan un nuevo sensor.,image(20261009-000744).png
+E12,assets/fotos/12-modulo-rele-5v.png,Componente pendiente,Fotografía de módulo relé de 5 V,"Componente disponible/seleccionado, pero no hay evidencia de conexión ni actuación sobre bomba.",image(20261009-000904).png
+E13,assets/fotos/13-modulo-ultrasonico-hcsr04.png,Componente pendiente,Fotografía de módulo ultrasónico HC-SR04,"Seleccionado para nivel del tanque; según el equipo, no integrado por adaptación de niveles lógicos.",image(20261009-000924).png
+E14,assets/fotos/14-placa-esp32.png,Prototipo,Fotografía de placa ESP32 alimentada,Se aprecia LED de alimentación y módulo ESP32; modelo exacto no verificable en la foto.,image(20261009-001006).png
+E15,assets/fotos/15-interfaz-sensor.png,Prototipo,Módulo de interfaz de humedad con potenciómetro,"Tarjeta de acondicionamiento, probablemente familia LM393, referencia exacta no legible.",image(20261009-001014).png
+E16,assets/fotos/16-servo-azul.png,Prototipo,Microservomotor azul con brazo blanco,"Actuador demostrativo; familia tipo SG90 por apariencia, sin referencia comprobada.",image(20261009-001026).png
+E17,assets/fotos/17-conexion-prototipo.png,Prototipo,Conjunto sensor e interfaz cableados,Montaje usado en pruebas de control; no se deben deducir GPIO exactos.,image(20261009-001103).png
+E18,assets/fotos/18-consola-servo-estados.png,Prototipo,Monitor: AUTO servo ABIERTO/CERRADO,Se observan mensajes de cambio de estado del servo y lecturas ADC.,image(20261009-001116).png
+E19,assets/fotos/19-prueba-humedad-papel.png,Prototipo,Sonda sobre papel y servo en la misma escena,Evidencia física de escenario de prueba de respuesta al cambio de humedad.,image(20261009-001318).png
+E20,assets/fotos/20-presion-papel-humedad.png,Prototipo,Prueba colocando mano sobre papel que cubre la sonda,Continuación del experimento con montaje y servo visibles.,image(20261009-001328).png
